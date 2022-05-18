@@ -1,0 +1,268 @@
+Problem 1 : Accelerate the Car (20 Marks)
+a) Create a new Java class named Car that has the following private fields
+⚫ year - The year field is an int that holds a car's year model (e.g. 2010)
+⚫ make - The make field is a String object that holds the make of the car (e.g. "Porsche")
+⚫ speed - The speed field is an double that holds a car's current speed (e.g. 25.0)
+b) In addition, the Car class should have the following methods.
+⚫ Constructor - The constructor should accept the car's year, make, and beginning speed as
+arguments
+◆ These values should be used to initialize the Car's year, make, and speed fields
+⚫ Getter Methods - Write three accessor (getter) methods to get the values stored in an object's fields
+⚫ accelerate - Write an accelerate method that has no arguments (parameters) passed to it and adds
+1 to the speed field each time it is called
+◆ For example: if the car was going 3 mph, accelerate would set the speed to 4 mph
+c) Write a separate java class RaceTrack in a separate file with a main() method that
+⚫ Create a new Car object (using the Car constructor method), passing in the year, make, and speed
+⚫ Display the current status of the car object using the getter methods getYear(), getMake(), and
+getSpeed()
+⚫ Call the car's accelerate method and then re-display the car's speed using getSpeed()
+
+
+
+public class Car
+{
+	private int year;
+	private String make;
+	private double speed;
+	
+	public Car(int year,String make,double speed)
+	{
+		this.year=year;
+		this.make=make;
+		this.speed=speed;
+	}
+	
+	public int getYear()
+	{
+		return this.year;
+	}
+	
+	public String getMake()
+	{
+		return this.make;
+	}
+	
+	public double getSpeed()
+	{
+		return this.speed;
+	}
+	
+	void accelerate()
+	{
+		this.speed++;
+	}
+}
+
+class RaceTrack
+{
+	public static void main(String[] args)
+	{
+		Car c=new Car(2010,"Porsche",25.0);
+		System.out.println("car's year model"+" "+c.getYear());
+		System.out.println("make of the car "+" "+c.getMake());
+		System.out.println("car's current speed "+" "+c.getSpeed());
+		c.accelerate();
+		System.out.println("accelerate would set the speed"+" "+c.getSpeed());
+	}
+}
+
+
+
+ANSWER-
+car's year model 2010
+make of the car  Porsche
+car's current speed  25.0
+accelerate would set the speed 26.0
+
+
+
+
+
+
+Problem 2 : Inventory Management (20 Marks)
+Write a program to create an inventory of items which will allow basic inventory management such as below
+==============================================================
+1) Add Item (Prevent duplication)
+2) Display complete inventory in sorted order of item names as well as itemId.
+3) Remove Item.
+4) Exit
+Please enter your choice (1-3)
+1. Define a class Item with two attributes itemId and itemName.
+2. The implementation should use ArrayList collection where every element of ArrayList collection holds the
+object of class Item.
+3. Put constraint on ArrayList of Item objects that, it should not allow insertion when the values of attributes
+itemID and itemName previously exist together in the ArrayList.
+Ex : If itemId and itemName with values (1, “Item1”) respectively, already exists in the ArrayList Collection, then
+same entry should not exist in your collection.
+
+
+
+
+import java.util.*;
+class Item
+{
+	int itemId;
+	String itemName;
+	Item(int itemId,String itemName)
+	{
+		this.itemId=itemId;
+		this.itemName=itemName;
+	}
+	
+	
+	Item(){}
+	void setitemId(int itemId)
+	{
+		this.itemId=itemId;
+	}
+	void setitemName(String itemName)
+	{
+		this.itemName=itemName;
+	}
+	public String toString()
+	{
+		return this.itemId+" "+this.itemName;
+	}
+}
+
+class namesort implements
+Comparator<Item>
+{
+	public int compare(Item I1,Item I2)
+	{
+		return I1.itemName.compareTo(I2.itemName);
+	}
+}
+
+class idsort implements
+Comparator<Item>
+{
+	public int compare(Item I1,Item I2)
+	{
+		return I1.itemId-(I2.itemId);
+	}
+}
+
+class Inventory
+{
+	static Item I=new Item();
+	static ArrayList<Item> list=new ArrayList<>();
+	
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		
+		int choice;
+		Item I1=new Item(1,"A");
+		Item I2=new Item(3,"R");
+		Item I3=new Item(2,"Z");
+		Item I4=new Item(4,"H");
+		Item I5=new Item(10,"M");
+		list.add(I1);
+		list.add(I2);
+		list.add(I3);
+		list.add(I4);
+		list.add(I5);
+		do
+		{
+			System.out.println("enter the choice==");
+			System.out.println("1) add Item.\n2)Display complete inventory in sorted order of item name as well as itemId.\n3) Remove Item.\n4)Exit");
+			
+			choice=sc.nextInt();
+			switch(choice)
+			{
+				case 1:
+				System.out.println("enter your details as follows");
+				
+				System.out.println("enter the item you want add");
+				
+				for(int i=1;i<=1;i++)
+				{
+					System.out.println("enter id of item");
+					int d=sc.nextInt();
+					I.setitemId(d);
+					System.out.println("enter id of item");
+					sc.nextLine();
+					String ss=sc.nextLine();
+					I.setitemName(ss);
+					list.add(I);
+				}
+				System.out.println("added item as follows");
+				System.out.println(list);
+				break;
+				case 2:
+				System.out.println("before sorting");
+				System.out.println(list);
+				System.out.println("sorting by id");
+				
+				idsort n2=new idsort();
+				Collections.sort(list,n2);
+				System.out.println(list);
+				System.out.println("sorting by name");
+				
+				namesort n1=new namesort();
+				Collections.sort(list,n1);
+				System.out.println(list);
+				break;
+				case 3:
+				System.out.println("list as follows");
+				System.out.println(list);
+				System.out.println("enter index remove item");
+				int re=sc.nextInt();
+				list.remove(re);
+				System.out.println("list after removal");
+				System.out.println(list);
+				break;
+				case 4:
+				break;
+			}
+		}
+		while(choice!=4);
+	}
+}
+				
+				
+				
+	
+ANSWER-
+enter the choice==
+1) add Item.
+2)Display complete inventory in sorted order of item name as well as itemId.
+3) Remove Item.
+4)Exit
+2
+before sorting
+[1 A, 3 R, 2 Z, 4 H, 10 M, 3 F, 3 F]
+sorting by id
+[1 A, 2 Z, 3 R, 3 F, 3 F, 4 H, 10 M]
+sorting by name
+[1 A, 3 F, 3 F, 4 H, 10 M, 3 R, 2 Z]
+enter the choice==
+1) add Item.
+2)Display complete inventory in sorted order of item name as well as itemId.
+3) Remove Item.
+4)Exit
+3
+list as follows
+[1 A, 3 F, 3 F, 4 H, 10 M, 3 R, 2 Z]
+enter index remove item
+2
+list after removal
+[1 A, 3 F, 4 H, 10 M, 3 R, 2 Z]
+enter the choice==
+1) add Item.
+2)Display complete inventory in sorted order of item name as well as itemId.
+3) Remove Item.
+4)Exit
+4
+
+
+
+
+
+
+
+
+
+
+	
